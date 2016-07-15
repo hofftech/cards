@@ -18,6 +18,16 @@ for i in $(ls images); do
 	composite -blend 90 template.jpg output/$i template-testing/$i
 done
 
+convert -background transparent -font Montserrat-SemiB -fill white -gravity center -size 1080x1080 -pointsize 800 label:H hofftech_icon.png
+convert -size 1080x1080 canvas:black black_icon.gif
+
+for i in $(ls images); do
+	convert -resize 1080x1080^ -gravity center -crop 1080x1080+0+0 images/$i tmp.jpg
+	composite -blend 30 black_icon.gif tmp.jpg tmp.jpg
+	composite hofftech_icon.png tmp.jpg output/icons/$i
+# 	composite -blend 90 template.jpg output/$i template-testing/$i
+done
+
 # rm tmp.jpg
 
 echo Finished!
